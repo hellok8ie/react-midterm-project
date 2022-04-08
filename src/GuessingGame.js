@@ -14,6 +14,7 @@ function GuessingGame () {
     const [numofGuess, setNumOfGuess] = usePersistence("numOfGuess", 0)
 
     console.log(luckyNumber)
+    console.log(guess)
 
     function updateGuess (event) {
         setGuess(event.target.value)
@@ -21,10 +22,13 @@ function GuessingGame () {
 
     function userGuess () {
 
+        guessCounter = numofGuess
         guessCounter++
         setNumOfGuess(guessCounter)
      
-        if (guess > luckyNumber) {
+        if (guess === "") {
+            setMessage("Please enter a number between 1-100")
+        } else if  (guess > luckyNumber) {
             setMessage("Too high, guess again!")
         } else if (guess < luckyNumber) {
             setMessage("Too low, guess again!")
@@ -35,10 +39,9 @@ function GuessingGame () {
 
     function resetAll () {
         setLuckyNumber(Math.floor(Math.random() * 100) + 1)
-        setGuess("");
+        setGuess('');
         setMessage("");
         setNumOfGuess(0);
-        guessCounter = 0
     }
 
     return (
@@ -46,11 +49,11 @@ function GuessingGame () {
             <p>Can you guess the lucky number?? It's between 1 and 100.</p>
             <p hidden={message ? true : false}>No guesses, yet...</p>
             <p>{message}</p>
-            <p hidden={numofGuess !== 0 ? false : true}>You've made {numofGuess} guess(es) so far.</p>
+            <p>You've made {numofGuess} guess(es) so far.</p>
             <Form>
                 <Form.Group>
                     <Form.Label>What's your best guess?</Form.Label>
-                    <Form.Control type="guess" value={guess} onChange={updateGuess}/>
+                    <Form.Control type='number' value={guess} onChange={updateGuess}/>
                 </Form.Group>
             </Form>
             <br/>
