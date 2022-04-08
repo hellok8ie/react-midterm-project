@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import usePersistence from './usePersistence';
@@ -8,7 +8,7 @@ let guessCounter = 0
 
 function GuessingGame () {
 
-    const [ luckyNumber, setLuckyNumber ] = usePersistence('luckyNumber', randomNum)
+    const [ luckyNumber, setLuckyNumber ] = usePersistence("luckyNumber", randomNum)
     const [guess, setGuess] = usePersistence("guess", "")
     const [message, setMessage] = usePersistence("message", "")
     const [numofGuess, setNumOfGuess] = usePersistence("numOfGuess", 0)
@@ -38,6 +38,7 @@ function GuessingGame () {
         setGuess("");
         setMessage("");
         setNumOfGuess(0);
+        guessCounter = 0
     }
 
     return (
@@ -49,13 +50,13 @@ function GuessingGame () {
             <Form>
                 <Form.Group>
                     <Form.Label>What's your best guess?</Form.Label>
-                    <Form.Control type="text" value={guess} onChange={updateGuess}/>
+                    <Form.Control type="guess" value={guess} onChange={updateGuess}/>
                 </Form.Group>
             </Form>
             <br/>
-            <Button variant="primary" type="submit" onClick={userGuess}>Guess!</Button>
+            <Button variant="primary" onClick={userGuess}>Guess!</Button>
             <br/><br/>
-            <Button variant="dark" type="submit" onClick={resetAll}>Reset</Button>
+            <Button variant="dark" onClick={resetAll}>Reset</Button>
         </div>
     )
 
