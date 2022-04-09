@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import usePersistence from './usePersistence';
+import styles from './GuessingGame.module.css';
 
 const randomNum = Math.floor(Math.random() * 100) + 1;
 let guessCounter = 0
@@ -14,10 +15,9 @@ function GuessingGame () {
     const [numofGuess, setNumOfGuess] = usePersistence("numOfGuess", 0)
 
     console.log(luckyNumber)
-    console.log(guess)
 
     function updateGuess (event) {
-        setGuess(event.target.value)
+        setGuess(parseInt(event.target.value))
     }
 
     function userGuess () {
@@ -39,27 +39,26 @@ function GuessingGame () {
 
     function resetAll () {
         setLuckyNumber(Math.floor(Math.random() * 100) + 1)
-        setGuess('');
+        setGuess("");
         setMessage("");
         setNumOfGuess(0);
     }
 
     return (
-        <div>
+        <div className={styles.gameDiv}>
             <p>Can you guess the lucky number?? It's between 1 and 100.</p>
             <p hidden={message ? true : false}>No guesses, yet...</p>
             <p>{message}</p>
             <p>You've made {numofGuess} guess(es) so far.</p>
-            <Form>
+            <Form className='col-4 mx-auto'>
                 <Form.Group>
                     <Form.Label>What's your best guess?</Form.Label>
-                    <Form.Control type='number' value={guess} onChange={updateGuess}/>
+                    <br/> 
+                    <Form.Control type='number' min="1" max="100" value={guess} onChange={updateGuess}/>
                 </Form.Group>
             </Form>
             <br/>
-            <Button variant="primary" onClick={userGuess}>Guess!</Button>
-            <br/><br/>
-            <Button variant="dark" onClick={resetAll}>Reset</Button>
+            <Button variant="dark" onClick={userGuess}>Guess!</Button>{' '}<Button variant="info" onClick={resetAll}>Reset Lucky Number</Button>
         </div>
     )
 

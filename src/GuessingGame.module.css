@@ -1,0 +1,6 @@
+.gameDiv {
+    align-items: center;
+    min-height: 100vh;
+    padding-top: 15%;
+    position: static;
+}
