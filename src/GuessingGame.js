@@ -14,7 +14,7 @@ function GuessingGame () {
     const [message, setMessage] = usePersistence("message", "")
     const [numofGuess, setNumOfGuess] = usePersistence("numOfGuess", 0)
 
-    console.log(luckyNumber)
+    // console.log(luckyNumber)
 
     function updateGuess (event) {
         setGuess(parseInt(event.target.value))
